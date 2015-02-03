@@ -1,0 +1,122 @@
+# Copyright (C) 2015 MIGHTYminnow & Mickey Kay
+# This file is distributed under the GPLv2+.
+msgid ""
+msgstr ""
+"Project-Id-Version: Custom Post Type Parents - Old 1.0.0\n"
+"Report-Msgid-Bugs-To: "
+"http://wordpress.org/support/plugin/custom-post-type-parents\n"
+"POT-Creation-Date: 2015-01-29 22:44:03+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n 0.4.9\n"
+
+#: custom-post-type-parents.php:161
+#: release/1.0.0/custom-post-type-parents.php:161
+msgid "Custom Post Type Parents"
+msgstr ""
+
+#: custom-post-type-parents.php:375
+#: release/1.0.0/custom-post-type-parents.php:375
+msgid "Menu Parent"
+msgstr ""
+
+#: custom-post-type-parents.php:433
+#: release/1.0.0/custom-post-type-parents.php:433
+msgid "None"
+msgstr ""
+
+#: custom-post-type-parents.php:450
+#: release/1.0.0/custom-post-type-parents.php:450
+msgid "There are no pages to choose from."
+msgstr ""
+
+#: includes/custom-simple-section-nav.php:16
+#: release/1.0.0/includes/custom-simple-section-nav.php:16
+msgid ""
+"A custom version of the Simple Section Navigation widget that is integrated "
+"with the Custom Post Type Parents plugin."
+msgstr ""
+
+#: includes/custom-simple-section-nav.php:17
+#: release/1.0.0/includes/custom-simple-section-nav.php:17
+msgid "Simple Section Navigation [Custom]"
+msgstr ""
+
+#: includes/custom-simple-section-nav.php:115
+#: release/1.0.0/includes/custom-simple-section-nav.php:115
+msgid "Override Title:"
+msgstr ""
+
+#: includes/custom-simple-section-nav.php:120
+#: release/1.0.0/includes/custom-simple-section-nav.php:120
+msgid "Sort pages by:"
+msgstr ""
+
+#: includes/custom-simple-section-nav.php:122
+#: release/1.0.0/includes/custom-simple-section-nav.php:122
+msgid "Page title"
+msgstr ""
+
+#: includes/custom-simple-section-nav.php:123
+#: release/1.0.0/includes/custom-simple-section-nav.php:123
+msgid "Page order"
+msgstr ""
+
+#: includes/custom-simple-section-nav.php:124
+#: release/1.0.0/includes/custom-simple-section-nav.php:124
+msgid "Page ID"
+msgstr ""
+
+#: includes/custom-simple-section-nav.php:128
+#: release/1.0.0/includes/custom-simple-section-nav.php:128
+msgid "Exclude:"
+msgstr ""
+
+#: includes/custom-simple-section-nav.php:134
+#: release/1.0.0/includes/custom-simple-section-nav.php:134
+msgid "Show on home page"
+msgstr ""
+
+#: includes/custom-simple-section-nav.php:136
+#: release/1.0.0/includes/custom-simple-section-nav.php:136
+msgid "Link heading (top level page)"
+msgstr ""
+
+#: includes/custom-simple-section-nav.php:138
+#: release/1.0.0/includes/custom-simple-section-nav.php:138
+msgid "Show all pages in section"
+msgstr ""
+
+#: includes/custom-simple-section-nav.php:140
+#: release/1.0.0/includes/custom-simple-section-nav.php:140
+msgid "Output even if empty section"
+msgstr ""
+
+#: includes/custom-simple-section-nav.php:142
+#: release/1.0.0/includes/custom-simple-section-nav.php:142
+msgid "No nav on excluded pages"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Custom Post Type Parents - Old"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/plugins/custom-post-type-parents"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "The ultimate Font Awesome icon plugin for WordPress."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "MIGHTYminnow & Mickey Kay"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "mickey@mickeykaycreative.com"
+msgstr ""
