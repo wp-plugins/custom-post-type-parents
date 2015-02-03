@@ -24,17 +24,17 @@ Custom Post Type Parents applies the following classes to parent and ancestor pa
 
 **Parent**
 
-* current-menu-parent
-* current_page_parent
-* current-custom-post-type-parent
-* current-{post type}-parent
+* .current-menu-parent
+* .current_page_parent
+* .current-custom-post-type-parent
+* .current-{post type}-parent
 
 **Ancestor**
 
-* current-menu-ancestor
-* current_page_ancestor
-* current-custom-post-type-ancestor
-* current-{post type}-ancestor
+* .current-menu-ancestor
+* .current_page_ancestor
+* .current-custom-post-type-ancestor
+* .current-{post type}-ancestor
 
 
 == Installation ==
