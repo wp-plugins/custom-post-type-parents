@@ -23,18 +23,16 @@ Menus and lists of pages will now have the appropriate classes applied to the sp
 Custom Post Type Parents applies the following classes to parent and ancestor pages (all classes are consistent with default WordPress classes and are backwards compatible).
 
 **Parent**
-
-*	current-menu-parent
-*	current_page_parent
-*	current-custom-post-type-parent
-*	current-{post type}-parent
+*	.current-menu-parent
+*	.current_page_parent
+*	.current-custom-post-type-parent
+*	.current-{post type}-parent
 
 **Ancestor**
-
-* current-menu-ancestor
-* current_page_ancestor
-* current-custom-post-type-ancestor
-* current-{post type}-ancestor
+*	.current-menu-ancestor
+*	.current_page_ancestor
+*	.current-custom-post-type-ancestor
+*	.current-{post type}-ancestor
 
 
 == Installation ==
