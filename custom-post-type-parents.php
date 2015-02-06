@@ -26,11 +26,7 @@
 
 add_action( 'plugins_loaded', 'cptp_start' );
 /**
- * Initialize the Better Font Awesome plugin.
- *
- * Start up Better Font Awesome early on the plugins_loaded hook, priority 5, in
- * order to load it before any other plugins that might also use the Better Font
- * Awesome Library.
+ * Initialize the plugin.
  *
  * @since  0.9.5
  */
@@ -40,7 +36,7 @@ function cptp_start() {
 }
 
 /**
- * Better Font Awesome plugin class
+ * Custom_Post_Type_Parents plugin class
  *
  * @since  0.9.0
  */
@@ -97,7 +93,7 @@ class Custom_Post_Type_Parents {
      *
      * @since  0.9.0
      *
-     * @var    Better_Font_Awesome_Plugin
+     * @var    Custom_Post_Type_Parents
      */
     protected static $instance = null;
 
@@ -105,7 +101,7 @@ class Custom_Post_Type_Parents {
      * Returns the instance of this class, and initializes the instance if it
      * doesn't already exist.
      *
-     * @return  Better_Font_Awesome  The BFA object.
+     * @return  Custom_Post_Type_Parents  The BFA object.
      */
      public static function get_instance() {
  
@@ -118,7 +114,7 @@ class Custom_Post_Type_Parents {
     }
 
     /**
-     * Better Font Awesome Plugin constructor.
+     * Custom_Post_Type_Parents plugin constructor.
      *
      * @since  0.9.0
      */
