@@ -26,11 +26,7 @@
 
 add_action( 'plugins_loaded', 'cptp_start' );
 /**
- * Initialize the Better Font Awesome plugin.
- *
- * Start up Better Font Awesome early on the plugins_loaded hook, priority 5, in
- * order to load it before any other plugins that might also use the Better Font
- * Awesome Library.
+ * Initialize the plugin.
  *
  * @since  0.9.5
  */
@@ -40,7 +36,7 @@ function cptp_start() {
 }
 
 /**
- * Better Font Awesome plugin class
+ * Custom_Post_Type_Parents plugin class
  *
  * @since  0.9.0
  */
@@ -97,7 +93,7 @@ class Custom_Post_Type_Parents {
      *
      * @since  0.9.0
      *
-     * @var    Better_Font_Awesome_Plugin
+     * @var    Custom_Post_Type_Parents
      */
     protected static $instance = null;
 
@@ -105,7 +101,7 @@ class Custom_Post_Type_Parents {
      * Returns the instance of this class, and initializes the instance if it
      * doesn't already exist.
      *
-     * @return  Better_Font_Awesome  The BFA object.
+     * @return  Custom_Post_Type_Parents  The BFA object.
      */
      public static function get_instance() {
  
@@ -118,7 +114,7 @@ class Custom_Post_Type_Parents {
     }
 
     /**
-     * Better Font Awesome Plugin constructor.
+     * Custom_Post_Type_Parents plugin constructor.
      *
      * @since  0.9.0
      */
@@ -160,7 +156,7 @@ class Custom_Post_Type_Parents {
         $this->plugin_display_name = __( 'Custom Post Type Parents', 'custom-post-type-parents' );
 
         // Get options
-        $this->options = get_option( $this->option_name );   		
+        $this->options = get_option( $this->option_name );          
 
     }
 
@@ -171,7 +167,7 @@ class Custom_Post_Type_Parents {
      */
     private function includes() {
     
-    	// Custom Simple Section Navigation widget override
+        // Custom Simple Section Navigation widget override
         require_once( plugin_dir_path( __FILE__ ) . 'includes/custom-simple-section-nav.php' );
 
     }
@@ -183,8 +179,8 @@ class Custom_Post_Type_Parents {
      */
     function load_text_domain() {
         $locale = apply_filters( 'plugin_locale', get_locale(), 'custom-post-type-parents' );
-		load_textdomain( 'custom-post-type-parents', WP_LANG_DIR . '/custom-post-type-parents/custom-post-type-parents-' . $locale . '.mo' );
-		load_plugin_textdomain( 'custom-post-type-parents', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+        load_textdomain( 'custom-post-type-parents', WP_LANG_DIR . '/custom-post-type-parents/custom-post-type-parents-' . $locale . '.mo' );
+        load_plugin_textdomain( 'custom-post-type-parents', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
     }
 
     /**
@@ -193,8 +189,8 @@ class Custom_Post_Type_Parents {
      * @since  1.0.0
      */
     function do_widget_registration() {
-    	unregister_widget( 'SimpleSectionNav' );
-    	register_widget( 'CustomSimpleSectionNav' );
+        unregister_widget( 'SimpleSectionNav' );
+        register_widget( 'CustomSimpleSectionNav' );
     }
 
     /**
@@ -205,7 +201,7 @@ class Custom_Post_Type_Parents {
      * @param  array    $classes  Current menu item classes array.
      * @param  WP_Post  $item     Menu item object.
      */
-	function add_menu_classes( $classes, $item ){
+    function add_menu_classes( $classes, $item ){
 
         // Only modify nav classes if post type has assigned parent
         if ( ! $this->has_assigned_parent() ) {
@@ -216,8 +212,8 @@ class Custom_Post_Type_Parents {
         $current_post_type = get_post_type();
         $custom_post_type_parent_id = $this->options[ 'parent-' . $current_post_type ];
 
-	    // Get all parent ancestor ID's
-	    $ancestor_ids = $this->get_ancestor_ids( $current_post_type );
+        // Get all parent ancestor ID's
+        $ancestor_ids = $this->get_ancestor_ids( $current_post_type );
        
         // Current post ID is represented differently for custom menu vs auto menu
         $menu_item_id = isset( $item->object_id ) ? $item->object_id : $item->ID;
@@ -242,8 +238,8 @@ class Custom_Post_Type_Parents {
             $classes[] = 'current_page_ancestor';
         }
 
-	    return $classes;
-	}
+        return $classes;
+    }
 
     /** 
      * Check if custom post type has assigned parent.
@@ -256,8 +252,8 @@ class Custom_Post_Type_Parents {
      */
     function has_assigned_parent( $post_type = '' ) {
 
-    	// Get current post type if needed
-    	$post_type = $post_type ? $post_type : get_post_type();
+        // Get current post type if needed
+        $post_type = $post_type ? $post_type : get_post_type();
 
         if ( 
             ! isset( $this->options[ 'parent-' . $post_type ] ) ||
@@ -280,16 +276,16 @@ class Custom_Post_Type_Parents {
      */
     function get_ancestor_ids( $post_type = '' ) {
 
-    	// Get current post type if needed
-    	$post_type = $post_type ? $post_type : get_post_type();
+        // Get current post type if needed
+        $post_type = $post_type ? $post_type : get_post_type();
 
-    	$custom_post_type_parent_id = $this->options[ 'parent-' . $post_type ];
-	    $ancestor_ids = get_ancestors( $custom_post_type_parent_id, 'page' );
-	    
-	    // Add parent ID to beginning of array
-	    array_unshift( $ancestor_ids, $custom_post_type_parent_id );
+        $custom_post_type_parent_id = $this->options[ 'parent-' . $post_type ];
+        $ancestor_ids = get_ancestors( $custom_post_type_parent_id, 'page' );
+        
+        // Add parent ID to beginning of array
+        array_unshift( $ancestor_ids, $custom_post_type_parent_id );
 
-	    return $ancestor_ids;
+        return $ancestor_ids;
     }
 
     /**
@@ -300,11 +296,11 @@ class Custom_Post_Type_Parents {
      * @return  WP_Post  The Custom Post Type parent post.
      */
     function ssn_filter_post( $post ) {
-    	if ( $this->has_assigned_parent() ) {
-    		$post = get_post( $this->options[ 'parent-' . get_post_type() ] );
-    	}
+        if ( $this->has_assigned_parent() ) {
+            $post = get_post( $this->options[ 'parent-' . get_post_type() ] );
+        }
 
-    	return $post;
+        return $post;
     }
 
     /**
@@ -360,25 +356,25 @@ class Custom_Post_Type_Parents {
         // Add section for every custom post type
         foreach ( get_post_types( $this->post_type_args ) as $post_type ) {                    
 
-        	$post_type_object = get_post_type_object( $post_type );
-        			
-        	add_settings_section(
-	            'custom_post_type_parents_main', // ID
-	            null, // Title
-	            array( $this, 'add_main_section_description' ), // Callback
-	            self::SLUG // Page
-	        );
+            $post_type_object = get_post_type_object( $post_type );
+                    
+            add_settings_section(
+                'custom_post_type_parents_main', // ID
+                null, // Title
+                array( $this, 'add_main_section_description' ), // Callback
+                self::SLUG // Page
+            );
 
-	        add_settings_field(
-	            'parent-' . $post_type_object->slug, // ID
-	            $post_type_object->labels->name, // Title
-	            array( $this, 'pages_dropdown_callback'), // Callback
-	            self::SLUG, // Page
-	            'custom_post_type_parents_main', // Section
-	            array( // Args
-	            	'post_type_object' => $post_type_object,
-	            ) 
-	        );
+            add_settings_field(
+                'parent-' . $post_type_object->slug, // ID
+                $post_type_object->labels->name, // Title
+                array( $this, 'pages_dropdown_callback'), // Callback
+                self::SLUG, // Page
+                'custom_post_type_parents_main', // Section
+                array( // Args
+                    'post_type_object' => $post_type_object,
+                ) 
+            );
 
         }
 
@@ -420,28 +416,28 @@ class Custom_Post_Type_Parents {
      */
     public function pages_dropdown_callback( $args ) {
 
-    	$pages = get_pages();
-    				
+        $pages = get_pages();
+                    
         if ( $pages ) {
 
             $option_name = 'parent-' . $args['post_type_object']->name;
 
             // Output the <select> element.
             printf( '<select id="%s" name="%s[%s]">', 
-            		$option_name,
-            		$this->option_name,
-            		$option_name
+                    $option_name,
+                    $this->option_name,
+                    $option_name
             );
 
             // Add 'None' option.
-			printf(
+            printf(
                 '<option value="%s" %s>%s</option>',
                 'none',
                 '',
                 __( 'None', 'custom-post-type-parents' )
             );
 
-            foreach ( $pages as $page ) {				
+            foreach ( $pages as $page ) {               
 
                 printf(
                     '<option value="%s" %s>%s</option>',
@@ -455,7 +451,7 @@ class Custom_Post_Type_Parents {
             echo '</select>';
 
         } else {
-        	echo __( 'There are no pages to choose from.', 'custom-post-type-parents' );
+            echo __( 'There are no pages to choose from.', 'custom-post-type-parents' );
         }
     }
 
@@ -465,7 +461,7 @@ class Custom_Post_Type_Parents {
      * @param  array  $input  Contains all settings fields as array keys.
      */
     public function validate_settings( $input ) {
-        		
+                
         foreach ( $input as $key => $value ) {
             $input[ $key ] = wp_filter_nohtml_kses( $value );
         }
