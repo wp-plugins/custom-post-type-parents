@@ -12,7 +12,7 @@
  * Plugin Name:       Custom Post Type Parents
  * Plugin URI:        http://wordpress.org/plugins/custom-post-type-parents
  * Description:       Set a "parent page" for custom post types that is indicated in menus and lists of pages.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            MIGHTYminnow & Mickey Kay
  * Author URI:        mickey@mickeykaycreative.com
  * License:           GPLv2+
@@ -26,7 +26,11 @@
 
 add_action( 'plugins_loaded', 'cptp_start' );
 /**
- * Initialize the plugin.
+ * Initialize the Better Font Awesome plugin.
+ *
+ * Start up Better Font Awesome early on the plugins_loaded hook, priority 5, in
+ * order to load it before any other plugins that might also use the Better Font
+ * Awesome Library.
  *
  * @since  0.9.5
  */
@@ -36,7 +40,7 @@ function cptp_start() {
 }
 
 /**
- * Custom_Post_Type_Parents plugin class
+ * Better Font Awesome plugin class
  *
  * @since  0.9.0
  */
@@ -89,11 +93,20 @@ class Custom_Post_Type_Parents {
     );
 
     /**
+     * Post types affected by plugin.
+     *
+     * @since  1.0.1
+     *
+     * @var    array
+     */
+    protected $post_types = array();
+
+    /**
      * Instance of this class.
      *
      * @since  0.9.0
      *
-     * @var    Custom_Post_Type_Parents
+     * @var    Better_Font_Awesome_Plugin
      */
     protected static $instance = null;
 
@@ -101,20 +114,20 @@ class Custom_Post_Type_Parents {
      * Returns the instance of this class, and initializes the instance if it
      * doesn't already exist.
      *
-     * @return  Custom_Post_Type_Parents  The BFA object.
+     * @return  Better_Font_Awesome  The BFA object.
      */
      public static function get_instance() {
- 
+
         if ( null == self::$instance ) {
             self::$instance = new self;
         }
- 
+
         return self::$instance;
- 
+
     }
 
     /**
-     * Custom_Post_Type_Parents plugin constructor.
+     * Better Font Awesome Plugin constructor.
      *
      * @since  0.9.0
      */
@@ -151,12 +164,12 @@ class Custom_Post_Type_Parents {
      * @since  1.0.0
      */
     private function initialize() {
-    
+
         // Set display name
         $this->plugin_display_name = __( 'Custom Post Type Parents', 'custom-post-type-parents' );
 
         // Get options
-        $this->options = get_option( $this->option_name );   		
+        $this->options = get_option( $this->option_name );
 
     }
 
@@ -166,7 +179,7 @@ class Custom_Post_Type_Parents {
      * @since  1.0.0
      */
     private function includes() {
-    
+
     	// Custom Simple Section Navigation widget override
         require_once( plugin_dir_path( __FILE__ ) . 'includes/custom-simple-section-nav.php' );
 
@@ -207,14 +220,14 @@ class Custom_Post_Type_Parents {
         if ( ! $this->has_assigned_parent() ) {
             return $classes;
         }
-        
+
         // Get parent ID
         $current_post_type = get_post_type();
         $custom_post_type_parent_id = $this->options[ 'parent-' . $current_post_type ];
 
 	    // Get all parent ancestor ID's
 	    $ancestor_ids = $this->get_ancestor_ids( $current_post_type );
-       
+
         // Current post ID is represented differently for custom menu vs auto menu
         $menu_item_id = isset( $item->object_id ) ? $item->object_id : $item->ID;
 
@@ -241,7 +254,7 @@ class Custom_Post_Type_Parents {
 	    return $classes;
 	}
 
-    /** 
+    /**
      * Check if custom post type has assigned parent.
      *
      * @since   1.0.0
@@ -255,7 +268,7 @@ class Custom_Post_Type_Parents {
     	// Get current post type if needed
     	$post_type = $post_type ? $post_type : get_post_type();
 
-        if ( 
+        if (
             ! isset( $this->options[ 'parent-' . $post_type ] ) ||
             'none' == $this->options[ 'parent-' . $post_type ]
         ) {
@@ -281,7 +294,7 @@ class Custom_Post_Type_Parents {
 
     	$custom_post_type_parent_id = $this->options[ 'parent-' . $post_type ];
 	    $ancestor_ids = get_ancestors( $custom_post_type_parent_id, 'page' );
-	    
+
 	    // Add parent ID to beginning of array
 	    array_unshift( $ancestor_ids, $custom_post_type_parent_id );
 
@@ -353,27 +366,29 @@ class Custom_Post_Type_Parents {
             array( $this, 'validate_settings' ) // Validation callback
         );
 
-        // Add section for every custom post type
-        foreach ( get_post_types( $this->post_type_args ) as $post_type ) {                    
+        add_settings_section(
+            'custom_post_type_parents_main', // ID
+            null, // Title
+            array( $this, 'add_main_section_description' ), // Callback
+            self::SLUG // Page
+        );
+
+        $this->post_types = get_post_types( $this->post_type_args );
+
+        // Add section for every custom post type.
+        foreach ( $this->post_types as $post_type ) {
 
         	$post_type_object = get_post_type_object( $post_type );
-        			
-        	add_settings_section(
-	            'custom_post_type_parents_main', // ID
-	            null, // Title
-	            array( $this, 'add_main_section_description' ), // Callback
-	            self::SLUG // Page
-	        );
 
 	        add_settings_field(
-	            'parent-' . $post_type_object->slug, // ID
+	            'parent-' . $post_type, // ID
 	            $post_type_object->labels->name, // Title
 	            array( $this, 'pages_dropdown_callback'), // Callback
 	            self::SLUG, // Page
 	            'custom_post_type_parents_main', // Section
 	            array( // Args
 	            	'post_type_object' => $post_type_object,
-	            ) 
+	            )
 	        );
 
         }
@@ -386,7 +401,11 @@ class Custom_Post_Type_Parents {
      * @since  1.0.0
      */
     public function add_main_section_description() {
-        _e( 'Select a parent for each custom post type.', 'custom-post-type-parents' );
+        ?>
+        <p><?php _e( 'Select a parent for each custom post type.', 'custom-post-type-parents' ); ?></p>
+        <?php if ( empty( $this->post_types ) ) : ?>
+            <p><i><?php _e( 'There are currently no registered custom post types to edit.', 'custom-post-type-parents' ); ?></i></p>
+        <?php endif;
     }
 
     /**
@@ -417,13 +436,13 @@ class Custom_Post_Type_Parents {
     public function pages_dropdown_callback( $args ) {
 
     	$pages = get_pages();
-    				
+
         if ( $pages ) {
 
             $option_name = 'parent-' . $args['post_type_object']->name;
 
             // Output the <select> element.
-            printf( '<select id="%s" name="%s[%s]">', 
+            printf( '<select id="%s" name="%s[%s]">',
             		$option_name,
             		$this->option_name,
             		$option_name
@@ -437,7 +456,7 @@ class Custom_Post_Type_Parents {
                 __( 'None', 'custom-post-type-parents' )
             );
 
-            foreach ( $pages as $page ) {				
+            foreach ( $pages as $page ) {
 
                 printf(
                     '<option value="%s" %s>%s</option>',
@@ -461,7 +480,7 @@ class Custom_Post_Type_Parents {
      * @param  array  $input  Contains all settings fields as array keys.
      */
     public function validate_settings( $input ) {
-        		
+
         foreach ( $input as $key => $value ) {
             $input[ $key ] = wp_filter_nohtml_kses( $value );
         }

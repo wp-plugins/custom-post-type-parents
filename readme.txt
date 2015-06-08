@@ -3,8 +3,8 @@ Contributors:      McGuive7, MIGHTYminnow
 Donate link:       http://wordpress.org/plugins/custom-post-type-parents
 Tags:              custom, post, type, parent, menu, list, pages
 Requires at least: 3.5
-Tested up to:      4.1
-Stable tag:        1.0.0
+Tested up to:      4.3
+Stable tag:        1.0.1
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,17 +22,17 @@ Menus and lists of pages will now have the appropriate classes applied to the sp
 = Classes =
 Custom Post Type Parents applies the following classes to parent and ancestor pages (all classes are consistent with default WordPress classes and are backwards compatible).
 
-= Parent =
-*	.current-menu-parent
-*	.current_page_parent
-*	.current-custom-post-type-parent
-*	.current-{post type}-parent
+**Parent**    
+* current-menu-parent
+* current_page_parent
+* current-custom-post-type-parent
+* current-{post type}-parent
 
-= Ancestor =
-*	.current-menu-ancestor
-*	.current_page_ancestor
-*	.current-custom-post-type-ancestor
-*	.current-{post type}-ancestor
+**Ancestor**    
+* current-menu-ancestor
+* current_page_ancestor
+* current-custom-post-type-ancestor
+* current-{post type}-ancestor
 
 
 == Installation ==
@@ -42,18 +42,26 @@ Custom Post Type Parents applies the following classes to parent and ancestor pa
 1. Upload the entire `/custom-post-type-parents` directory to the `/wp-content/plugins/` directory.
 2. Activate Custom Post Type Parents through the 'Plugins' menu in WordPress.
 
+== Frequently Asked Questions ==
+
 
 == Screenshots ==
 
-1. The Custom Post Type Parents admin screen
-2. Displaying a custom post type on the front-end with the parent page highlighted in the menu and Simple Section Navigation widget
 
 == Changelog ==
+
+= 1.0.1 =
+* Fix issue in which custom post types weren't appearing - code was incorrectly referencing `slug`
+* Add admin text to indicate if no custom post types are available to edit
 
 = 1.0.0 =
 * First release
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+* Fix issue in which custom post types weren't appearing - code was incorrectly referencing `slug`
+* Add admin text to indicate if no custom post types are available to edit
 
 = 1.0.0 =
 First Release
