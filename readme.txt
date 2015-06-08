@@ -12,7 +12,7 @@ Set a "parent page" for custom post types that is indicated in menus, lists of p
 
 == Description ==
 
-**Like this plugin? Please consider [https://wordpress.org/support/view/plugin-reviews/custom-post-type-parents](leaving a 5-star review).**
+**Like this plugin? Please consider (leaving a 5-star review)[https://wordpress.org/support/view/plugin-reviews/custom-post-type-parents].**
 
 This plugin is meant to solve the problem of highlighting "parent" pages for Custom Post Types in the menu and lists of pages. It integrates with custom menu output as well as output for any functions like `wp_list_pages()` that utilize the `page_css_class` or `nav_menu_css_class` filters. When viewing a custom post type, the assigned "parent page" will be indicated with standard WordPress classes (e.g. current_page_item) in navigation menus and lists of pages.
 
